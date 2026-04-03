@@ -1,0 +1,11 @@
+header {
+  background-color: palegoldenrod;
+  height: 5rem;
+  display: flex;
+  justify-content: space-around;
+
+  .menu-e-botoes {
+    display: flex;
+    align-items: center;
+  }
+}
