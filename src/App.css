@@ -1,4 +1,12 @@
-header {
-  display: flex;
-  background-color: palegoldenrod;
+.app {
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(45deg, blue, chartreuse);
+
+  header {
+    background-color: palegoldenrod;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+  }
 }

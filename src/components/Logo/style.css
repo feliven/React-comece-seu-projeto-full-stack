@@ -1,0 +1,5 @@
+.logo {
+  display: flex;
+  min-width: 25vw;
+  justify-content: space-around;
+}

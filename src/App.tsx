@@ -1,18 +1,13 @@
 import "./App.css";
-import logo from "./assets/logo.svg";
+import Logo from "./components/Logo";
 
 function App() {
   return (
-    <>
+    <div className="app">
       <header>
-        <div>
-          <img src={logo} alt="Logotipo" />
-          <h1>
-            <strong>Alura</strong> Books
-          </h1>
-        </div>
+        <Logo></Logo>
       </header>
-    </>
+    </div>
   );
 }
 
