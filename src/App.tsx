@@ -1,22 +1,17 @@
 import "./App.css";
+import IconesHeader from "./components/IconesHeader";
 import Logo from "./components/Logo";
+import OpcoesHeader from "./components/OpcoesHeader";
 
 function App() {
   return (
     <div className="app">
       <header>
-        <Logo></Logo>
-        <ul>
-          <li>
-            <p>Categorias</p>
-          </li>
-          <li>
-            <p>Minha estante</p>
-          </li>
-          <li>
-            <p>Favoritos</p>
-          </li>
-        </ul>
+        <Logo />
+        <div className="menu-e-botoes">
+          <OpcoesHeader />
+          <IconesHeader />
+        </div>
       </header>
     </div>
   );

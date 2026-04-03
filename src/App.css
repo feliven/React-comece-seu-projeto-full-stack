@@ -8,15 +8,10 @@
     height: 5rem;
     display: flex;
     justify-content: space-around;
-  }
 
-  ul {
-    display: inline-flex;
-    align-items: center;
-    gap: 1.5rem;
-    list-style-type: none;
-    li {
-      cursor: pointer;
+    .menu-e-botoes {
+      display: flex;
+      align-items: center;
     }
   }
 }
