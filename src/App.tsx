@@ -6,6 +6,17 @@ function App() {
     <div className="app">
       <header>
         <Logo></Logo>
+        <ul>
+          <li>
+            <p>Categorias</p>
+          </li>
+          <li>
+            <p>Minha estante</p>
+          </li>
+          <li>
+            <p>Favoritos</p>
+          </li>
+        </ul>
       </header>
     </div>
   );

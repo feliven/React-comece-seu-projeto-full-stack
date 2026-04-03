@@ -1,5 +1,11 @@
 .logo {
-  display: flex;
+  cursor: pointer;
   min-width: 25vw;
+  display: flex;
   justify-content: space-around;
+  align-items: center;
+
+  img {
+    height: fit-content;
+  }
 }
