@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { lancamentos } from "./dadosLancamentos";
 import Titulo from "../Titulo";
+import CardRecomendacao from "../CardRecomendacao";
+import livro2 from "../../assets/livro2.png";
 
 const LancamentosContainer = styled.section`
   margin: 1rem;
@@ -53,6 +55,12 @@ function UltimosLancamentos() {
           );
         })}
       </div>
+      <CardRecomendacao
+        titulo="Talvez você se interesse por..."
+        subtitulo="Angular"
+        descricao="Construa aplicações com componentes"
+        imgsrc={livro2}
+      ></CardRecomendacao>
     </LancamentosContainer>
   );
 }
