@@ -5,11 +5,10 @@ import { dbLivros } from "./dadosPesquisa";
 import type { Livro } from "../../types";
 
 const PesquisaContainer = styled.section`
-  height: 50vh;
-  margin: 4rem 0;
+  min-height: 18rem;
+  height: 25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   align-items: center;
   justify-content: space-around;
 
@@ -29,11 +28,13 @@ const Subtitulo = styled.h3`
 `;
 
 const ResultadoBusca = styled.div`
+  margin-top: 1.25rem;
   padding: 0.25rem;
   padding-right: 0.9rem;
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  cursor: pointer;
 
   img {
     max-width: 7rem;
