@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "rootDir": "./src",
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    /* Bundler mode */
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+
+    /* Linting */
+    "strict": true
+  }
+}

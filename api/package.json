@@ -1,0 +1,22 @@
+{
+  "name": "alura-books-api",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "FVS-MBA",
+  "type": "commonjs",
+  "main": "Server.ts",
+  "scripts": {
+    "start": "ts-node ./src/Server.ts",
+    "dev": "nodemon ./src/Server.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.2",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.2"
+  }
+}
