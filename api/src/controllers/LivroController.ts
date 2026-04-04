@@ -1,22 +1,18 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Livro } from "../shared/types";
 import { getTodosOsLivros, createOrChangeLivro } from "../services/LivroService";
 
-export const getLivros = (req: Request, res: Response) => {
+export const getLivros = (req: Request, res: Response, next: NextFunction) => {
   try {
     const dbLivros = getTodosOsLivros();
 
     res.status(200).json(dbLivros);
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).send(error.message);
-    } else {
-      res.status(500).send(`An unexpected error occurred: ${error as string}`);
-    }
+    next(error);
   }
 };
 
-export const postLivro = (req: Request, res: Response) => {
+export const postLivro = (req: Request, res: Response, next: NextFunction) => {
   try {
     const dbLivros = getTodosOsLivros();
     const novoLivro: Livro = req.body;
@@ -27,15 +23,11 @@ export const postLivro = (req: Request, res: Response) => {
 
     res.status(201).json(dbLivrosAtualizado);
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).send(error.message);
-    } else {
-      res.status(500).send(`An unexpected error occurred: ${error as string}`);
-    }
+    next(error);
   }
 };
 
-export const putLivro = (req: Request<Livro>, res: Response) => {
+export const putLivro = (req: Request<Livro>, res: Response, next: NextFunction) => {
   try {
     const dbLivros = getTodosOsLivros();
 
@@ -47,14 +39,10 @@ export const putLivro = (req: Request<Livro>, res: Response) => {
 
     res.status(200).json(dbLivros);
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).send(error.message);
-    } else {
-      res.status(500).send(`An unexpected error occurred: ${error as string}`);
-    }
+    next(error);
   }
 };
-export const deleteLivro = (req: Request<{ id: string }>, res: Response) => {
+export const deleteLivro = (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
   try {
     const dbLivros = getTodosOsLivros();
 
@@ -75,10 +63,6 @@ export const deleteLivro = (req: Request<{ id: string }>, res: Response) => {
 
     res.status(200).json(dbLivros);
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).send(error.message);
-    } else {
-      res.status(500).send(`An unexpected error occurred: ${error as string}`);
-    }
+    next(error);
   }
 };
