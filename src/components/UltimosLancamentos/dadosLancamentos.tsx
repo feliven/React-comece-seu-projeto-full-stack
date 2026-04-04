@@ -10,5 +10,4 @@ export const lancamentos: Livro[] = [
   { id: 5, nome: "Nova liderança em design", src: livro },
   { id: 6, nome: "Novo Angular", src: livro2 },
   { id: 8, nome: "Novo Angular", src: livro2 },
-  { id: 7, nome: "Nova liderança em design", src: livro },
 ];

@@ -15,7 +15,7 @@ function OpcoesHeader(): React.JSX.Element {
   return (
     <OpcoesHeaderContainer>
       {listaOpcoes.map((opcao) => (
-        <li>
+        <li key={opcao}>
           <p>{opcao}</p>
         </li>
       ))}
