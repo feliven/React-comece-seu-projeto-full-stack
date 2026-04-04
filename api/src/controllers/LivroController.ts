@@ -1,13 +1,10 @@
 import { Request, Response } from "express";
-import fs from "fs";
-import path from "path";
 import { Livro } from "../shared/types";
-
-const dbPath = path.join(__dirname, "../db/dbLivros.json");
+import { getTodosOsLivros, createOrChangeLivro } from "../services/LivroService";
 
 export const getLivros = (req: Request, res: Response) => {
   try {
-    const dbLivros: Livro[] = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
+    const dbLivros = getTodosOsLivros();
 
     res.status(200).json(dbLivros);
   } catch (error) {
@@ -21,11 +18,12 @@ export const getLivros = (req: Request, res: Response) => {
 
 export const postLivro = (req: Request, res: Response) => {
   try {
-    const dbLivros: Livro[] = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
+    const dbLivros = getTodosOsLivros();
     const novoLivro: Livro = req.body;
 
     const dbLivrosAtualizado = [novoLivro, ...dbLivros];
-    fs.writeFileSync(dbPath, JSON.stringify(dbLivrosAtualizado));
+
+    createOrChangeLivro(dbLivrosAtualizado);
 
     res.status(201).json(dbLivrosAtualizado);
   } catch (error) {
@@ -39,15 +37,15 @@ export const postLivro = (req: Request, res: Response) => {
 
 export const putLivro = (req: Request<Livro>, res: Response) => {
   try {
-    const dbLivros: Livro[] = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
+    const dbLivros = getTodosOsLivros();
 
     const livroAtualizado: Livro = req.body;
     const indexLivroParaAtualizar = dbLivros.findIndex((livro) => livro.id === livroAtualizado.id);
 
     dbLivros[indexLivroParaAtualizar] = { ...livroAtualizado };
-    fs.writeFileSync(dbPath, JSON.stringify(dbLivros));
+    createOrChangeLivro(dbLivros);
 
-    res.status(201).json(dbLivros);
+    res.status(200).json(dbLivros);
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).send(error.message);
@@ -58,7 +56,7 @@ export const putLivro = (req: Request<Livro>, res: Response) => {
 };
 export const deleteLivro = (req: Request<{ id: string }>, res: Response) => {
   try {
-    const dbLivros: Livro[] = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
+    const dbLivros = getTodosOsLivros();
 
     const { id } = req.body;
     if (!id) {
@@ -73,7 +71,7 @@ export const deleteLivro = (req: Request<{ id: string }>, res: Response) => {
     }
 
     dbLivros.splice(indexLivroParaRemover, 1);
-    // fs.writeFileSync(dbPath, JSON.stringify(dbLivros));
+    createOrChangeLivro(dbLivros);
 
     res.status(200).json(dbLivros);
   } catch (error) {
