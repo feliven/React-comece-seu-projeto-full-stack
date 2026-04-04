@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Input from "../Input";
 import { useState } from "react";
+import { dbLivros } from "./dadosPesquisa";
+import type { Livro } from "../../types";
 
 const PesquisaContainer = styled.section`
   height: 50vh;
@@ -10,18 +12,40 @@ const PesquisaContainer = styled.section`
   gap: 0.5rem;
   align-items: center;
   justify-content: space-around;
+
+  h4 {
+    color: white;
+  }
 `;
+
 const Titulo = styled.h2`
   color: white;
   font-size: 4rem;
 `;
+
 const Subtitulo = styled.h3`
   color: mintcream;
   font-size: 2.5rem;
 `;
 
+const ResultadoBusca = styled.div`
+  padding: 0.25rem;
+  padding-right: 0.9rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  img {
+    max-width: 7rem;
+  }
+
+  &:hover {
+    background-color: fuchsia;
+  }
+`;
+
 function Pesquisa() {
-  const [textoDigitado, setTextoDigitado] = useState("");
+  const [livrosPesquisados, setLivrosPesquisados] = useState<Livro[]>([]);
 
   return (
     <PesquisaContainer>
@@ -31,11 +55,22 @@ function Pesquisa() {
         type="text"
         placeholder="Pesquise..."
         onBlur={(evento) => {
-          console.log(evento.target.value);
-          setTextoDigitado(evento.target.value);
+          const tituloPesquisado = evento.target.value;
+          const livrosRetornados = dbLivros.filter((livro) => {
+            return livro.nome.toLowerCase().includes(tituloPesquisado.toLowerCase());
+          });
+          console.log("livrosRetornados:", livrosRetornados);
+          setLivrosPesquisados(livrosRetornados);
         }}
       />
-      <h1>{textoDigitado}</h1>
+      {livrosPesquisados.map((livro) => {
+        return (
+          <ResultadoBusca>
+            <img src={livro.src} />
+            <h4>Título: {livro.nome}</h4>
+          </ResultadoBusca>
+        );
+      })}
     </PesquisaContainer>
   );
 }
