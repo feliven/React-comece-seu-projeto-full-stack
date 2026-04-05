@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import type { Livro } from "../shared/types";
-import { getFavoritos } from "../services/favorito-service";
+import { deleteFavorito, getFavoritos } from "../services/favorito-service";
 
 const FavoritosContainer = styled.div`
   background-image: linear-gradient(45deg, blue, chartreuse);
@@ -38,17 +38,23 @@ const FavoritosContainer = styled.div`
 `;
 
 function Favoritos() {
-  // const [favoritosPesquisados, setFavoritosPesquisados] = useState<Livro[]>([]);
   const [favoritos, setFavoritos] = useState<Livro[]>([]);
 
   useEffect(() => {
-    const fetchFavoritos = async () => {
-      const livrosApi: Livro[] = await getFavoritos();
-      setFavoritos(livrosApi);
-    };
-
     void fetchFavoritos();
   }, []);
+
+  const fetchFavoritos = async () => {
+    const livrosApi = await getFavoritos();
+    if (!livrosApi) return;
+    setFavoritos(livrosApi);
+  };
+
+  const removeFavorito = async (id: string) => {
+    await deleteFavorito(id);
+    alert(`Livro de id ${id} foi removido dos Favoritos`);
+    await fetchFavoritos();
+  };
 
   return (
     <FavoritosContainer>
@@ -56,7 +62,7 @@ function Favoritos() {
         <h1>Lista de livros favoritos:</h1>
 
         {favoritos.map((fav) => (
-          <p key={fav.id}>
+          <p key={fav.id} onClick={() => removeFavorito(String(fav.id))}>
             {fav.title}
             {fav.author ? `, escrito por ${fav.author}` : null}
           </p>

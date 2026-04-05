@@ -3,6 +3,7 @@ import Input from "../Input";
 import { useEffect, useState } from "react";
 import type { Livro } from "../../shared/types";
 import { getLivros } from "../../services/livro-service";
+import { postFavorito } from "../../services/favorito-service";
 
 const PesquisaContainer = styled.section`
   min-height: 18rem;
@@ -59,6 +60,11 @@ function Pesquisa() {
     void fetchLivros();
   }, []);
 
+  const insertFavorito = async (id: string) => {
+    await postFavorito(id);
+    alert(`Livro de id ${id} foi salvo em Favoritos!`);
+  };
+
   return (
     <PesquisaContainer>
       <Titulo>Já sabe por onde começar?</Titulo>
@@ -77,7 +83,7 @@ function Pesquisa() {
       />
       {livrosPesquisados.map((livro) => {
         return (
-          <ResultadoBusca key={livro.id}>
+          <ResultadoBusca key={livro.id} onClick={() => insertFavorito(String(livro.id))}>
             <img src={livro.src} />
             <h4>
               {livro.title}
