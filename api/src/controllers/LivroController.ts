@@ -10,6 +10,11 @@ import {
 
 const MSG_NAO_ENCONTRADO = "Livro não encontrado";
 const MSG_ID_OBRIGATORIO = "ID é obrigatório";
+const MSG_ID_INVALIDO = "ID inválido - precisa ser um número";
+
+const isNotANumber = (v: string) => {
+  return Number.isNaN(Number(v));
+};
 
 export const getLivros = (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -24,11 +29,12 @@ export const getLivros = (req: Request, res: Response, next: NextFunction) => {
 export const getLivroPorId = (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    if (!id) res.status(400).json({ message: MSG_ID_OBRIGATORIO });
+    if (!id) res.status(400).send(MSG_ID_OBRIGATORIO);
+    else if (isNotANumber(id)) res.status(422).send(MSG_ID_INVALIDO);
 
     const livroProcurado = retornarLivroPorId(id);
 
-    if (!livroProcurado) res.status(404).json({ message: MSG_NAO_ENCONTRADO });
+    if (!livroProcurado) res.status(404).send(MSG_NAO_ENCONTRADO);
 
     res.status(200).json(livroProcurado);
   } catch (error) {
@@ -41,7 +47,7 @@ export const postLivro = (req: Request, res: Response, next: NextFunction) => {
     const novoLivro: Livro = req.body;
     const livroFoiCriado = criarLivro(novoLivro);
 
-    if (!livroFoiCriado) res.status(400).json({ message: "Este ID já existe" });
+    if (!livroFoiCriado) res.status(400).send("Este ID já existe");
 
     res.status(201).json(novoLivro);
   } catch (error) {
@@ -54,11 +60,12 @@ export const putLivro = (req: Request<{ id?: string }>, res: Response, next: Nex
     const livroAtualizado: Livro = req.body;
     const { id } = req.params;
 
-    if (Number(id) !== livroAtualizado.id) res.status(400).json({ message: "IDs precisam ser iguais" });
+    if (Number(id) !== livroAtualizado.id) res.status(400).send("IDs precisam ser iguais");
+    else if (id && isNotANumber(id)) res.status(422).send(MSG_ID_INVALIDO);
 
     const livroFoiAtualizado = alterarLivro(livroAtualizado);
 
-    if (!livroFoiAtualizado) res.status(404).json({ message: MSG_NAO_ENCONTRADO });
+    if (!livroFoiAtualizado) res.status(404).send(MSG_NAO_ENCONTRADO);
 
     res.status(200).json(livroAtualizado);
   } catch (error) {
@@ -69,11 +76,12 @@ export const putLivro = (req: Request<{ id?: string }>, res: Response, next: Nex
 export const deleteLivro = (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    if (!id) res.status(400).json({ message: MSG_ID_OBRIGATORIO });
+    if (!id) res.status(400).send(MSG_ID_OBRIGATORIO);
+    else if (isNotANumber(id)) res.status(422).send(MSG_ID_INVALIDO);
 
     const livroFoiRemovido = removerLivro(id);
 
-    if (!livroFoiRemovido) res.status(404).json({ message: MSG_NAO_ENCONTRADO });
+    if (!livroFoiRemovido) res.status(404).send(MSG_NAO_ENCONTRADO);
 
     res.status(200).send("Livro removido");
   } catch (error) {
