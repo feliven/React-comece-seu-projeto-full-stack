@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import livros from "./routes/Livros.routes";
+import favoritos from "./routes/Favoritos.routes";
 
 const app = express();
 
@@ -10,6 +11,7 @@ const port = 8000;
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 app.use("/livros", livros);
+app.use("/favoritos", favoritos);
 
 app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof Error) {

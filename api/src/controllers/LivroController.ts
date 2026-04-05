@@ -7,14 +7,11 @@ import {
   removerLivro,
   criarLivro,
 } from "../services/LivroService";
+import { isNotANumber } from "../shared/utils";
 
 const MSG_NAO_ENCONTRADO = "Livro não encontrado";
 const MSG_ID_OBRIGATORIO = "ID é obrigatório";
 const MSG_ID_INVALIDO = "ID inválido - precisa ser um número";
-
-const isNotANumber = (v: string) => {
-  return Number.isNaN(Number(v));
-};
 
 export const getLivros = (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -61,7 +58,7 @@ export const putLivro = (req: Request<{ id?: string }>, res: Response, next: Nex
     const { id } = req.params;
 
     if (Number(id) !== livroAtualizado.id) res.status(400).send("IDs precisam ser iguais");
-    else if (id && isNotANumber(id)) res.status(422).send(MSG_ID_INVALIDO);
+    else if (isNotANumber(id)) res.status(422).send(MSG_ID_INVALIDO);
 
     const livroFoiAtualizado = alterarLivro(livroAtualizado);
 
