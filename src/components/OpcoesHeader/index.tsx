@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const OpcoesHeaderContainer = styled.ul`
@@ -9,14 +10,20 @@ const OpcoesHeaderContainer = styled.ul`
   }
 `;
 
-const listaOpcoes = ["Categorias", "Minha estante", "Favoritos"];
+const listaOpcoes = [
+  { nome: "Categorias", rota: "categorias" },
+  { nome: "Minha estante", rota: "minha-estante" },
+  { nome: "Favoritos", rota: "favoritos" },
+];
 
 function OpcoesHeader(): React.JSX.Element {
   return (
     <OpcoesHeaderContainer>
       {listaOpcoes.map((opcao) => (
-        <li key={opcao}>
-          <p>{opcao}</p>
+        <li key={opcao.nome}>
+          <Link to={`/${opcao.rota}`}>
+            <p>{opcao.nome}</p>
+          </Link>
         </li>
       ))}
     </OpcoesHeaderContainer>

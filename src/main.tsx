@@ -1,7 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import Home from "./routes/Home.tsx";
+import Header from "./components/Header";
 import { createGlobalStyle } from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Favoritos from "./routes/Favoritos.tsx";
 
 const GlobalStyle = createGlobalStyle`
 :root {
@@ -114,6 +117,12 @@ ul {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <GlobalStyle />
-    <App />
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/favoritos" element={<Favoritos />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   </StrictMode>,
 );
