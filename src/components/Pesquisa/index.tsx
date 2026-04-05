@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Input from "../Input";
-import { useState } from "react";
-import { dbLivros } from "./dadosPesquisa";
+import { useEffect, useState } from "react";
 import type { Livro } from "../../shared/types";
+import { getLivros } from "../../services/livro-service";
 
 const PesquisaContainer = styled.section`
   min-height: 18rem;
@@ -28,6 +28,7 @@ const Subtitulo = styled.h3`
 `;
 
 const ResultadoBusca = styled.div`
+  background-color: fuchsia;
   margin-top: 1.25rem;
   padding: 0.25rem;
   padding-right: 0.9rem;
@@ -41,12 +42,22 @@ const ResultadoBusca = styled.div`
   }
 
   &:hover {
-    background-color: fuchsia;
+    background-color: darkmagenta;
   }
 `;
 
 function Pesquisa() {
   const [livrosPesquisados, setLivrosPesquisados] = useState<Livro[]>([]);
+  const [livros, setLivros] = useState<Livro[]>([]);
+
+  useEffect(() => {
+    const fetchLivros = async () => {
+      const livrosApi: Livro[] = await getLivros();
+      setLivros(livrosApi);
+    };
+
+    void fetchLivros();
+  }, []);
 
   return (
     <PesquisaContainer>
@@ -57,8 +68,8 @@ function Pesquisa() {
         placeholder="Pesquise..."
         onBlur={(evento) => {
           const tituloPesquisado = evento.target.value;
-          const livrosRetornados = dbLivros.filter((livro) => {
-            return livro.nome.toLowerCase().includes(tituloPesquisado.toLowerCase());
+          const livrosRetornados = livros.filter((livro) => {
+            return livro.title.toLowerCase().includes(tituloPesquisado.toLowerCase());
           });
           console.log("livrosRetornados:", livrosRetornados);
           setLivrosPesquisados(livrosRetornados);
@@ -66,9 +77,12 @@ function Pesquisa() {
       />
       {livrosPesquisados.map((livro) => {
         return (
-          <ResultadoBusca>
+          <ResultadoBusca key={livro.id}>
             <img src={livro.src} />
-            <h4>Título: {livro.nome}</h4>
+            <h4>
+              {livro.title}
+              {livro.author ? `, por ${livro.author}` : null}
+            </h4>
           </ResultadoBusca>
         );
       })}
