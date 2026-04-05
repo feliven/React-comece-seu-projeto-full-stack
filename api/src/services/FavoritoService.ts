@@ -21,7 +21,7 @@ export const criarFavorito = (id: string) => {
   const dbLivros = JSON.parse(fs.readFileSync(dbLivrosPath, "utf-8")) as Livro[];
   const indexLivro = dbLivros.findIndex((livro) => livro.id === Number(id));
 
-  if (!indexLivro) return false;
+  if (indexLivro === -1) return false;
 
   const novoLivroFavorito = dbLivros[indexLivro];
 

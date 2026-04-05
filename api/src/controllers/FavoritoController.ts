@@ -25,7 +25,7 @@ export const getFavoritos = (req: Request, res: Response, next: NextFunction) =>
 export const getFavoritoPorId = (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    if (!id) {
+    if (id === undefined) {
       return res.status(400).send(MSG_ID_OBRIGATORIO);
     } else if (isNotANumber(id)) {
       return res.status(422).send(MSG_ID_INVALIDO);
@@ -47,7 +47,7 @@ export const postFavorito = (req: Request<{ id?: string }>, res: Response, next:
     const corpoReq: { id: string } | undefined = req.body;
     const { id: idDaUrl } = req.params;
 
-    if (!idDaUrl && !corpoReq?.id) {
+    if (idDaUrl === undefined && corpoReq?.id === undefined) {
       return res.status(400).send(MSG_ID_OBRIGATORIO);
     } else if (isNotANumber(idDaUrl) && isNotANumber(corpoReq?.id)) {
       return res.status(422).send(MSG_ID_INVALIDO);
@@ -70,7 +70,7 @@ export const postFavorito = (req: Request<{ id?: string }>, res: Response, next:
 export const deleteFavorito = (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    if (!id) {
+    if (id === undefined) {
       return res.status(400).send(MSG_ID_OBRIGATORIO);
     } else if (isNotANumber(id)) {
       return res.status(422).send(MSG_ID_INVALIDO);

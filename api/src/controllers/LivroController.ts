@@ -26,7 +26,7 @@ export const getLivros = (req: Request, res: Response, next: NextFunction) => {
 export const getLivroPorId = (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    if (!id) {
+    if (id === undefined) {
       return res.status(400).send(MSG_ID_OBRIGATORIO);
     } else if (isNotANumber(id)) {
       return res.status(422).send(MSG_ID_INVALIDO);
@@ -83,7 +83,7 @@ export const putLivro = (req: Request<{ id?: string }>, res: Response, next: Nex
 export const deleteLivro = (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    if (!id) {
+    if (id === undefined) {
       return res.status(400).send(MSG_ID_OBRIGATORIO);
     } else if (isNotANumber(id)) {
       return res.status(422).send(MSG_ID_INVALIDO);
