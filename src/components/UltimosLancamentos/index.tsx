@@ -49,7 +49,7 @@ function UltimosLancamentos() {
             <div key={livro.id}>
               <img src={livro.src} />
               <Titulo $cor="crimson" $tamanhoFonte="50px">
-                {livro.nome}
+                {livro.title}
               </Titulo>
             </div>
           );

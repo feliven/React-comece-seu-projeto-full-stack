@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Input from "../Input";
 import { useState } from "react";
 import { dbLivros } from "./dadosPesquisa";
-import type { Livro } from "../../types";
+import type { Livro } from "../../shared/types";
 
 const PesquisaContainer = styled.section`
   min-height: 18rem;

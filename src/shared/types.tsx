@@ -1,4 +1,4 @@
-// Express
+// React
 
 export type Livro = {
   id: number;
