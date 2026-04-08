@@ -4,7 +4,8 @@ import Home from "./routes/Home.tsx";
 import Header from "./components/Header";
 import { createGlobalStyle } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Favoritos from "./routes/Favoritos.tsx";
+// import Favoritos from "./routes/Favoritos.tsx";
+import FavoritosNoUseEffect from "./routes/FavoritosNoUseEffect.tsx";
 
 const GlobalStyle = createGlobalStyle`
 :root {
@@ -120,9 +121,11 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/favoritos" element={<Favoritos />} />
+        <Route path="/favoritos" element={<FavoritosNoUseEffect />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
 );
+
+// <Route path="/favoritos" element={<Favoritos />} />
